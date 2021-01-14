@@ -3,8 +3,6 @@ package HCY.CommentBoard.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -13,11 +11,9 @@ import javax.persistence.Id;
 @ToString
 @Getter
 @Builder
-public class Member {
+public class Member extends BaseEntity{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Id
     private String email;
     private String password;
     private String name;
