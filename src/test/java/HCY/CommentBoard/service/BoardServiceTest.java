@@ -88,4 +88,22 @@ class BoardServiceTest {
 
     }
 
+    @Test
+    public void testDelete() throws Exception {
+
+        boardService.removeWithReplies(1L);
+
+    }
+
+
+    @Test
+    public void testModify() throws Exception {
+
+        BoardDTO dto = BoardDTO.builder().id(2L).title("ModifyTitle").content("Modified").build();
+        boardService.modify(dto);
+        BoardDTO boardDTO = boardService.get(dto.getId());
+        System.out.println(boardDTO);
+
+    }
+
 }

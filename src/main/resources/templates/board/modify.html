@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+    <th:block th:fragment="content">
+        <form action="@{/board/modify}" th:method="post">
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}">
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+
+            <div class="form-group">
+                <label >ID</label>
+                <input type="text" class="form-control" name="ID" th:value="${dto.id}" readonly>
+            </div>
+            <div class="form-group">
+                <label >Title</label>
+                <input type="text" class="form-control" name="title" th:value="${dto.title}" >
+            </div>
+            <div class="form-group">
+                <label >Content</label>
+                <textarea class="form-control" rows="5" name="content" >[[${dto.content}]]</textarea>
+            </div>
+            <div class="form-group">
+                <label >Writer</label>
+                <input type="text" class="form-control" name="writer" th:value="${dto.writerName}" readonly>
+            </div>
+            <div class="form-group">
+                <label >CreatedDate</label>
+                <input type="text" class="form-control" name="createdDate" th:value="${#temporals.format(dto.createdDate,
+                                'yyyy/MM/dd HH:mm:ss')}" readonly>
+            </div>
+            <div class="form-group">
+                <label >ModifiedDate</label>
+                <input type="text" class="form-control" name="modifiedDate" th:value="${#temporals.format(dto.modifiedDate,
+                                'yyyy/MM/dd HH:mm:ss')}" readonly>
+            </div>
+        </form>
+    </th:block>
+</th:block>
+</html>
