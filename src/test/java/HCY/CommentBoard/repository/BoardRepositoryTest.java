@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,6 +100,29 @@ class BoardRepositoryTest {
         Object[] arr = (Object[]) result;
 
         System.out.println(Arrays.toString(arr));
+    }
+
+    @Test
+    public void testSearch1() throws Exception {
+        boardRepository.search1();
+    }
+
+    @Test
+    public void testSearchPage() throws Exception {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending().and(Sort.by("title").ascending()));
+
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
+        Stream<Object[]> stream = result.get();
+        stream.forEach(objects -> {
+            Board board = (Board) objects[0];
+            Member member = (Member) objects[1];
+            Long replyCount = (Long) objects[2];
+            System.out.println(board);
+            System.out.println(member);
+            System.out.println(replyCount);
+            System.out.println("======================");
+        });
     }
 
 }

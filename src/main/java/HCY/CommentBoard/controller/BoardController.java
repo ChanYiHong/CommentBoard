@@ -56,7 +56,7 @@ public class BoardController {
 
     @PostMapping("/modify")
     public String modifyPost(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO,
-                           @ModelAttribute("dto") BoardDTO dto, RedirectAttributes redirectAttributes){
+                           BoardDTO dto, RedirectAttributes redirectAttributes){
 
         log.info("modify controller..........");
 
