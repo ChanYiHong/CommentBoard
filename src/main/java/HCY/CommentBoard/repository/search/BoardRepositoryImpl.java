@@ -1,14 +1,10 @@
 package HCY.CommentBoard.repository.search;
 
 import HCY.CommentBoard.entity.Board;
-import HCY.CommentBoard.entity.QBoard;
-import HCY.CommentBoard.entity.QMember;
-import HCY.CommentBoard.entity.QReply;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;

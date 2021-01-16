@@ -8,6 +8,6 @@ public interface SearchBoardRepository {
 
     Board search1();
 
-//    Page<Object[]> SearchPage(String type, String keyword, Pageable pageable);
+    Page<Object[]> SearchPage(String type, String keyword, Pageable pageable);
 
 }
