@@ -107,7 +107,7 @@
                         $.each(arr, function(idx, reply){
 
                             console.log(reply);
-                            str += '<div class="card-body" data-replyId="'+reply.id+'"><b>' + reply.id +'</b>';
+                            str += '<div class="card-body" data-id="'+reply.id+'"><b>' + reply.id +'</b>';
                             str += '<h5 class="card-title">'+reply.text+'</h5>';
                             str += '<h6 class="card-subtitle mb-2 text-muted">'+reply.replyer+'</h6>';
                             str += '<p class="card-text">'+ formatTime(reply.createdDate)+'</p>';
@@ -120,6 +120,19 @@
                     });
 
                 }
+
+                var modal = $('.modal');
+                $('.addReply').click(function(){
+                    modal.modal('show');
+
+                    $('input[name="replyText"]').val('');
+                    $('input[name="replyer"]').val('');
+
+                    $(".modal-footer .btn").hide();
+                    $(".replySave, .replyClose").show();
+                });
+
+
                 $(".replyCount").click(function() {
                     loadJSONData();
                 }) // end click
@@ -151,15 +164,66 @@
                     })
                 });
 
-                var modal = $('.modal');
-                $('.addReply').click(function(){
-                    modal.modal('show');
-
-                    $('input[name="replyText"]').val('');
-                    $('input[name="replyer"]').val('');
+                // 댓글 목록 하나 클릭하면, 그 해당하는 값을 모달에 전달. 필요없는 버튼은 안보이게.
+                $('.replyList').on("click", ".card-body", function(){
+                    var replyId = $(this).data("id");
+                    $("input[name='replyText']").val($(this).find('.card-title').html());
+                    $("input[name='replyer']").val($(this).find('.card-subtitle').html());
+                    $("input[name='id']").val(replyId);
 
                     $(".modal-footer .btn").hide();
-                    $(".replySave, .replyClose").show();
+                    $(".replyRemove, .replyModify, .replyClose").show();
+
+                    modal.modal('show');
+                });
+
+                $(".replyRemove").click(function(){
+
+                    var replyId = $('input[name="id"]').val();
+
+                    $.ajax({
+                        url: '/replies/'+replyId,
+                        method: 'delete',
+
+                        success: function(result){
+                            console.log("result: " + result);
+                            if(result === 'success') {
+                                alert("댓글이 삭제되었습니다");
+                                modal.modal('hide');
+                                loadJSONData();
+                            }
+                        }
+                    })
+                });
+
+
+                $('.replyModify').click(function(){
+
+                    var replyId = $('input[name="id"]').val();
+
+                    var reply = {
+                        id: replyId,
+                        boardId: id,
+                        text: $('input[name="replyText"]').val(),
+                        replyer: $('input[name="replyer"]').val()
+                    }
+
+                    $.ajax({
+                        url: '/replies/'+replyId,
+                        method: 'put',
+                        data: JSON.stringify(reply),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function(result){
+                            console.log("RESULT: " + result);
+
+                            if(result === 'success'){
+                                alert("댓글이 수정되었습니다.");
+                                modal.modal('hide');
+                                loadJSONData();
+                            }
+                        }
+                    })
+
                 });
 
             });

@@ -33,4 +33,16 @@ public class ReplyController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{replyId}")
+    public ResponseEntity<String> remove(@PathVariable("replyId") Long replyId) {
+        replyService.remove(replyId);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @PutMapping("/{replyId}")
+    public ResponseEntity<String> modify(@RequestBody ReplyDTO replyDTO) {
+        replyService.modify(replyDTO);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
 }

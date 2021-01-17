@@ -41,6 +41,7 @@ public class ReplyServiceImpl implements ReplyService{
         if(result.isPresent()){
             Reply reply = result.get();
             reply.changeText(dto.getText());
+            reply.changeReplyer(dto.getReplyer());
         }
     }
 
